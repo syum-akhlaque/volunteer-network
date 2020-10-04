@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 import './App.css';
 import Header from './Components/Header/Header';
@@ -6,9 +6,24 @@ import Home from './Components/Home/Home';
 import Login from './Components/Login/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Register from './Components/Register/Register';
+import Events from './Components/Events/Events';
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
+export const userContext = createContext();
+
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState({
+    isLogIn : false,
+    name    : '',
+    email   : ''
+  });
+  useEffect(() => {
+    document.title = "Volunteer Network"
+ }, []);
+
   return (
+    <userContext.Provider value = {[loggedInUser,setLoggedInUser]} >
+      
       <Router>
         <Header/>
         <Switch>
@@ -20,12 +35,16 @@ function App() {
             <Home/>
           </Route>
 
-          <Route exact path="/register">
+          <PrivateRoute exact path="/register">
             <Register/>
-          </Route>
+          </PrivateRoute>
 
           <Route exact path="/login">
             <Login />
+          </Route>
+
+          <Route exact path="/events">
+            <Events/>
           </Route>
 
           <Route path='*'>
@@ -33,6 +52,7 @@ function App() {
         </Route>
         </Switch>
     </Router>
+    </userContext.Provider>
   );
 }
 

@@ -1,0 +1,23 @@
+.event-body{
+    margin-top: 100px;
+    padding-bottom: 50px;
+    background-color: #eee;
+}
+.events div{
+    background-color: #fff;   
+    margin-top: 35px; 
+}
+.events img{
+    width: 194px;
+    height: 173px;
+    padding: 20px;
+}
+.event-details {
+    padding: 20px 0 0px 40px;
+    width: 100%;
+}
+.event-button {
+    /* min-height: 65px; */
+    padding-right: 20px;
+    padding-bottom: 0px !important;
+}

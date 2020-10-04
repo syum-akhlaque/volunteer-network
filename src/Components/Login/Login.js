@@ -1,9 +1,49 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import googleLogo from '../../Images/logos/google.png';
+import * as firebase from "firebase/app";
+import "firebase/auth";
+import firebaseConfig from './firebaseConfig';
+import './Login.css';
+import { userContext } from '../../App';
+import { useHistory, useLocation } from 'react-router-dom';
+firebase.initializeApp(firebaseConfig);
+
+
 
 const Login = () => {
+
+    const [loggedInUser, setLoggedInUser] = useContext(userContext);
+    let history = useHistory();
+    let location = useLocation();
+    let { from } = location.state || { from: { pathname: "/" } };
+
+
+    //google login process
+
+    const googleSignIn = () => {
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(googleProvider)
+          .then(result => {
+            const token = result.credential.accessToken;
+            const {displayName, email} = result.user;
+            const newUserInfo = {...loggedInUser};
+            newUserInfo.isLogIn = true;
+            newUserInfo.name = displayName;
+            newUserInfo.email = email;
+            setLoggedInUser(newUserInfo);
+           history.replace(from);
+          })
+          .catch(error => {
+            console.log(error.message);
+          })
+      }
+    
     return (
-        <div>
-            
+        <div className = 'login-form'>
+        <h4>Login With</h4>
+               
+             <button className = 'logo-button ' onClick={googleSignIn}> <img src={googleLogo}  alt=""/>Continue With Google</button>
+        
         </div>
     );
 };

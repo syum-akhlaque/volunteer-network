@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './Register.css'
 import { useForm } from "react-hook-form";
 import Grid from '@material-ui/core/Grid';
@@ -8,30 +8,57 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from '@material-ui/pickers';
+import { useHistory, useLocation } from 'react-router-dom';
+import { userContext } from '../../App';
 
 const Register = () => {
 
+    const [loggedInUser] = useContext(userContext);
     const { register, handleSubmit, errors } = useForm();
-    const onSubmit = data => console.log(data);
-    const loggedInUser = '';
+    const history = useHistory();
+    const location = useLocation();
+    const {orgName,imgUrl} = location.state || ''; // get organization name and img from state
     const [selectedDate, setSelectedDate] = useState(new Date());
     const handleDateChange = (date) => {
         setSelectedDate(date);
       };
-    console.log(selectedDate);
+
+    console.log(selectedDate.toString().slice(4,15));
+
+    const onSubmit = data => { //Handle register , send register info in db;
+        const events = { // this object that will be  push in database for event page
+            orgName : orgName,
+            email   : loggedInUser.email,
+            date    : selectedDate.toString().slice(4,15),
+            imgUrl  : imgUrl,
+        }
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(events)
+        };
+        fetch('http://localhost:5000/addOrgEvents', requestOptions) ;
+        
+        history.push({ 
+            pathname: '/events',
+            state: { 
+                date : selectedDate,
+                orgName : data.orgName,
+            }
+        });
+    };
+   
     return (
         <div className = 'login-form'>
         <h4> Register as a Volunteer</h4>
 
         <form onSubmit={handleSubmit(onSubmit)} >
                    
-            <input name="fullName" type="text" defaultValue={loggedInUser.displayName} placeholder= 'Full Name' ref={register({ required: true, minLength: 3 , pattern : /^([^0-9]*)$/ })} />
+            <input name="fullName" type="text" value={loggedInUser.name} placeholder= 'Full Name' ref={register({ required: true, minLength: 3 , pattern : /^([^0-9]*)$/ })} />
             {errors.fullName && <span className='error'>*Required, minimum charecters 3 and digit not allowed</span>}
            
-
-            <input name="email" type="email" defaultValue={loggedInUser.email} placeholder = "Email" ref={register({ required: true })} />
-             {errors.description && <span className='error'>Email is required </span>}  
-
+            <input name="email" type="email" value={loggedInUser.email} placeholder = "Email" ref={register({ required: true })} />
+               
              <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Grid container justify="space-around">
                 <KeyboardDatePicker
@@ -45,17 +72,13 @@ const Register = () => {
                 </Grid>
             </MuiPickersUtilsProvider>
 
-            <input name="description" type="text" placeholder= 'Description'/>
-            {errors.description && <span className='error'>*Required, minimum charecters 3 and digit not allowed</span>}    
+            <input name="description" type="text" placeholder= 'Description'  ref={register({ required: true })}/>
+            {errors.description && <span className='error'>Description is required </span>}
 
-             <input name="fullName" type="text" defaultValue={loggedInUser.orgName} placeholder= 'OrgName' />
-            
-             
-          
+             <input name="orgName" type="text" value={orgName} placeholder= 'OrgName'  ref={register} />
+
             <input type="submit" value =  'Register' />
-
-        </form> 
-      
+        </form>    
     </div>
     );
 };
