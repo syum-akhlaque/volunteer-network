@@ -17,27 +17,26 @@ const Register = () => {
     const { register, handleSubmit, errors } = useForm();
     const history = useHistory();
     const location = useLocation();
-    const {orgName,imgUrl} = location.state || ''; // get organization name and img from state
+    const {orgName,imgUrl} = location.state || ''; // get organization name and img url from state
     const [selectedDate, setSelectedDate] = useState(new Date());
     const handleDateChange = (date) => {
         setSelectedDate(date);
       };
 
-    console.log(selectedDate.toString().slice(4,15));
-
     const onSubmit = data => { //Handle register , send register info in db;
-        const events = { // this object that will be  push in database for event page
+        const events = { //object that will be push in database
+            name    : loggedInUser.name,
             orgName : orgName,
             email   : loggedInUser.email,
             date    : selectedDate.toString().slice(4,15),
-            imgUrl  : imgUrl,
+            imgUrl  : imgUrl,        
         }
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(events)
         };
-        fetch('http://localhost:5000/addOrgEvents', requestOptions) ;
+        fetch('https://cryptic-ocean-31876.herokuapp.com/addEvents', requestOptions); // fetch req to add events
         
         history.push({ 
             pathname: '/events',
@@ -49,13 +48,13 @@ const Register = () => {
     };
    
     return (
-        <div className = 'login-form'>
+        <div className = 'register-form'>
         <h4> Register as a Volunteer</h4>
 
         <form onSubmit={handleSubmit(onSubmit)} >
                    
-            <input name="fullName" type="text" value={loggedInUser.name} placeholder= 'Full Name' ref={register({ required: true, minLength: 3 , pattern : /^([^0-9]*)$/ })} />
-            {errors.fullName && <span className='error'>*Required, minimum charecters 3 and digit not allowed</span>}
+            <input name="name" type="text" value={loggedInUser.name} placeholder= 'Full Name' ref={register({ required: true, minLength: 3 , pattern : /^([^0-9]*)$/ })} />
+            {errors.name && <span className='error'>*Required, minimum charecters 3 and digit not allowed</span>}
            
             <input name="email" type="email" value={loggedInUser.email} placeholder = "Email" ref={register({ required: true })} />
                
@@ -66,8 +65,7 @@ const Register = () => {
                 id="date-picker-dialog"
                 format="MM/dd/yyyy"
                 value={selectedDate}
-                onChange={handleDateChange}
-                
+                onChange={handleDateChange}    
                 />
                 </Grid>
             </MuiPickersUtilsProvider>

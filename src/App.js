@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css';
 import Header from './Components/Header/Header';
 import Home from './Components/Home/Home';
@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Register from './Components/Register/Register';
 import Events from './Components/Events/Events';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
+import Admin from './Components/Admin/Admin';
 export const userContext = createContext();
 
 
@@ -23,7 +24,6 @@ function App() {
 
   return (
     <userContext.Provider value = {[loggedInUser,setLoggedInUser]} >
-      
       <Router>
         <Header/>
         <Switch>
@@ -38,6 +38,10 @@ function App() {
           <PrivateRoute exact path="/register">
             <Register/>
           </PrivateRoute>
+
+          <Route exact path="/admin">
+            <Admin />
+          </Route>
 
           <Route exact path="/login">
             <Login />

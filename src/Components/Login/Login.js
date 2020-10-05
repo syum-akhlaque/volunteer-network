@@ -8,18 +8,13 @@ import { userContext } from '../../App';
 import { useHistory, useLocation } from 'react-router-dom';
 firebase.initializeApp(firebaseConfig);
 
-
-
 const Login = () => {
 
     const [loggedInUser, setLoggedInUser] = useContext(userContext);
     let history = useHistory();
     let location = useLocation();
     let { from } = location.state || { from: { pathname: "/" } };
-
-
     //google login process
-
     const googleSignIn = () => {
         const googleProvider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(googleProvider)
@@ -31,18 +26,27 @@ const Login = () => {
             newUserInfo.name = displayName;
             newUserInfo.email = email;
             setLoggedInUser(newUserInfo);
-           history.replace(from);
+            storezAuthToken();
+            history.replace(from);
           })
           .catch(error => {
             console.log(error.message);
           })
       }
+      const storezAuthToken = () => {
+        firebase.auth().currentUser.getIdToken(true) /* forceRefresh */ 
+        .then(function(idToken) {
+            sessionStorage.setItem('token', idToken)
+          }).catch(function(error) {
+            // Handle error
+          });
+    }
     
     return (
         <div className = 'login-form'>
         <h4>Login With</h4>
                
-             <button className = 'logo-button ' onClick={googleSignIn}> <img src={googleLogo}  alt=""/>Continue With Google</button>
+             <button className = 'logo-button my-5' onClick={googleSignIn}> <img src={googleLogo}  alt=""/>Continue With Google</button>
         
         </div>
     );

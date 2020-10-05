@@ -1,0 +1,21 @@
+.admin{
+    background-color: #fff;
+}
+.right-side{
+    background-color: #E5E5E5;
+}
+table{
+    background-color: #fff;
+    margin-top: 25px;
+    border-radius: 15px;
+}
+.dlt-icon {
+    cursor: pointer;
+}
+#admin-addEvent-form{
+    display: none;
+}
+.left-sidebar p:hover{
+    cursor: pointer;
+    color: blue;
+}

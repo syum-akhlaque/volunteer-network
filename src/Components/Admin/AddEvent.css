@@ -1,0 +1,52 @@
+.addUser-form {
+  width: 95%;
+  margin: auto;
+  background:#ffffff;
+  border: 1px solid #ABABAB;
+  box-sizing: border-box;
+  border-radius: 15px;
+  padding: 25px 22px;
+  margin-top: 25px;
+  margin-bottom: 20px;
+
+
+}
+.addUser-form input {
+  display: block;
+  padding: 12px;
+  border: none;
+  width: 417px;
+  background: #F2F2F2;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000000;
+  margin-bottom: 20px;
+}
+.addUser-form label{
+  color: #818181;
+  display: block;
+  font-size: 16px;
+}
+
+.addUser-form input:focus{
+  border: none;
+  border: 1px solid gray;
+}
+.error{
+  color: red;
+}
+.addUser-form :focus {
+  outline: -webkit-focus-ring-color auto 0px;
+}
+.addUser-form ::placeholder { 
+  color: rgb(65, 60, 60) !important;
+}
+.addUser-form input[type=submit]{
+  background: #F9A51A;
+  
+}
+input.big-field {
+    line-height: 100px;
+}

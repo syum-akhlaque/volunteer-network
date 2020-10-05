@@ -1,35 +1,29 @@
-/* ----------bg header css start------------ */
 
+#header-bg{
+  background-image: linear-gradient( rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9) ),url('https://i.postimg.cc/CLjCD8zZ/headerBg.png');
+  background-position: center center;
+  background-size: cover;
+  position: absolute;
+  width: 100%;
+  height: 496px;
+  left: 0px;
+  top: 0px;
+  color: #000;
+   z-index: -1;
 
-.white-header{
-    background-position: center center;
-    background-size: cover;
-    position: absolute;
-    width: 100%;
-    height: 496px;
-    left: 0px;
-    top: 0px;
-    color: #000;
-     z-index: -1;
-
+  /* https://i.postimg.cc/CLjCD8zZ/headerBg.png */
+}
+ul{
+  display: flex;
+  justify-content: space-around;
 }
 
-
-
-/* -------------common css both header---------- */
-  /* .headerBtn{
-      background-color: #F9A51A;
-      color: #000000;
-      padding: 5px 15px;
-      margin-left: 45px;
-      border: 1px white;
-  } */
   .white-nav .btn{
     padding: 5px 15px;
-    margin-left: 45px;
+    /* margin-left: 45px; */
   }
   .white-nav{
-    margin-left: 40px;
+    /* margin-left: 40px; */
     margin-top: 30px;
     margin-bottom: 30px;
     position: relative;
@@ -37,13 +31,14 @@
  
  .white-nav li{
     display: inline;
-    margin-left: 40px;  
+    /* margin-left: 40px;   */
   }
  
   /* ----------white header css start -----------*/
 .white-header .logo{
-    height: 40px;
-    margin-right: 310px;
+    height: 50px;
+    margin-right: 100px;
+    
 }
   .white-header .white-nav a{
     text-decoration: none;

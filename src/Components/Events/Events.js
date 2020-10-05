@@ -1,28 +1,60 @@
 import { Container } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Row } from 'react-bootstrap';
-import img from '../../Images/image/riverClean.png'
 import './Events.css'
-import orgdata from '../../FakeData/orgData'
 import EventCards from './EventCards';
+import { userContext } from '../../App';
+import { Link } from 'react-router-dom';
 
 const Events = (props) => {
+  const [events ,setEvents] = useState([]);
+  const [loggedInUser] = useContext(userContext);
+  const requestOptions = {
+    method: 'GET',
+    headers: { 
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${sessionStorage.getItem('token')}`
+    }
+  }
+  const handleRemoveEvent = (id)=>{
+        fetch('https://cryptic-ocean-31876.herokuapp.com/delete/'+id,{ //fetch request for delete 
+            method: 'DELETE'
+          })
+        .then(() => {       
+            fetch('https://cryptic-ocean-31876.herokuapp.com/eventList?email='+loggedInUser.email,requestOptions) // fetch req for refresh events
+            .then(response => response.json())
+            .then(data => setEvents(data)); 
+         }).catch(err => {
+           console.error(err)
+         });
+    }
 
       //get Events data 
-      const [event ,setEvent] = useState([]);
-      useEffect(() => {
-        fetch('http://localhost:5000/eventList') 
-            .then(response => response.json())
-            .then(data => setEvent(data)); 
-      }, []);
+    useEffect(() => {
+          fetch('https://cryptic-ocean-31876.herokuapp.com/eventList?email='+loggedInUser.email,requestOptions) 
+              .then(response => response.json())
+              .then(data => setEvents(data)); 
+        }, []);
    
     return (
      <div className = 'event-body'>   
         <Container>
             <Row>
-                {
-                    event.map( event => <EventCards  key= {event._id}  event={event}></EventCards>)
-                }
+                {loggedInUser.isLogIn? 
+                <>
+                  {
+                    events.map( events => <EventCards  key= {events._id}  events={events} handleRemoveEvent= {handleRemoveEvent}
+                    ></EventCards>)
+                  }
+                </>:
+                <>
+                  <div className = 'd-flex justify-content-center  w-100 '>
+                    <Link to='/login'>
+                      <button className= ' btn btn-secondary text-white mt-5 align-items-center'>Please Login To See Your Events </button>
+                    </Link>
+                  </div>
+                </>
+              }
             </Row>  
         </Container>
      </div>

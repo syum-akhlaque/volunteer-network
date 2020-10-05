@@ -1,11 +1,14 @@
 import React from 'react';
 import './Events.css'
 
+
 const EventCards = (props) => {
-    const {imgUrl, date, orgName} = props.event;
+    const {imgUrl, date, orgName, _id} = props.events;
+    //let dltId = 'str'+_id;
+    
     return (
         <>
-        <div className = 'd-flex col-md-6 events'>   
+        <div className = 'd-flex col-md-6 events '>
             <div>
                 <img src={imgUrl} alt=""/>
             </div>
@@ -13,7 +16,7 @@ const EventCards = (props) => {
                 <h4>{orgName}</h4> 
                 <b>{date}</b>
                 <div className ='event-button d-flex align-items-end justify-content-end '>
-                <button className= 'btn btn-secondary ' onClick = '' >Cencle</button> 
+                <button className= 'btn btn-secondary ' onClick={(event)=>props.handleRemoveEvent( _id)} >Cencle</button> 
                 </div>
             </div> 
         </div>
