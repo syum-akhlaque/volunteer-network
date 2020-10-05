@@ -73,7 +73,9 @@ const Register = () => {
             <input name="description" type="text" placeholder= 'Description'  ref={register({ required: true })}/>
             {errors.description && <span className='error'>Description is required </span>}
 
-             <input name="orgName" type="text" value={orgName} placeholder= 'OrgName'  ref={register} />
+             <input name="orgName" type="text" value={orgName} placeholder= 'OrgName'  ref={register({ required: true })} />
+             {errors.orgName && <span className='error'>Org Name is required </span>}
+
 
             <input type="submit" value =  'Register' />
         </form>    

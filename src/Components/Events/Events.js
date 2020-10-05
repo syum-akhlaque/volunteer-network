@@ -31,10 +31,10 @@ const Events = (props) => {
 
       //get Events data 
     useEffect(() => {
-          fetch('https://cryptic-ocean-31876.herokuapp.com/eventList?email='+loggedInUser.email,requestOptions) 
+           fetch('https://cryptic-ocean-31876.herokuapp.com/eventList?email='+loggedInUser.email,requestOptions) 
               .then(response => response.json())
               .then(data => setEvents(data)); 
-        }, []);
+        }, [loggedInUser.email,requestOptions]);
    
     return (
      <div className = 'event-body'>   

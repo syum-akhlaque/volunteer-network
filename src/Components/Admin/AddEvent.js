@@ -13,7 +13,8 @@ import { useHistory } from 'react-router-dom';
 const AddEvent = () => {
     const { register, handleSubmit, errors } = useForm();
     const history = useHistory();
-    const defaultImgUrl = 'https://i.postimg.cc/br5jT64V/house-png-170.png'
+    //const defaultImgUrl = 'https://i.postimg.cc/br5jT64V/house-png-170.png'
+    const defaultImgUrl = 'https://i.postimg.cc/W1yVJbcM/people-united-hands-together-teamwork-55877-572.jpg'
 
     const [selectedDate, setSelectedDate] = useState(new Date());
     const handleDateChange = (date) => {
