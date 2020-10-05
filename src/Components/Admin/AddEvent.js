@@ -33,7 +33,7 @@ const AddEvent = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(events)
         };
-        fetch('http://localhost:5000/addNewOrgEvent', requestOptions) ;// fetch req for add new org event 
+        fetch('https://cryptic-ocean-31876.herokuapp.com/addNewOrgEvent', requestOptions) ;// fetch req for add new org event 
        
         history.push({ 
             pathname: '/', //redirect to home page
