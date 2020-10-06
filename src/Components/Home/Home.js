@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import './Home.css';
+import OrgCards from './OrgCards';
 const Home = () => {
 
     //get ornaginazation data 
@@ -36,12 +37,9 @@ const Home = () => {
             <div>
                 <Container>
                     <Row>
-                        { //get all organization list
-                           org.map( org => 
-                            <div  key={org._id} style={{  backgroundImage: ` url(${org.orgImg})`,           
-                                }} className ='cards col-md-3 d-flex align-items-end' >
-                                <button className= 'btn btn-danger cards-btn btn-lg py-3 ' onClick = {()=>processRegister(org.orgName , org.id, org.orgImg)} > {org.orgName}</button> 
-                            </div>)
+                        { //-----Show all organization list----
+                           org.map( org => <OrgCards key={org._id} org = {org} processRegister={processRegister}>
+                           </OrgCards> )
                         }       
                     </Row>  
                 </Container>

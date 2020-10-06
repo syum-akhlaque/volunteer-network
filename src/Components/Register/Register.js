@@ -53,10 +53,10 @@ const Register = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} >
                    
-            <input name="name" type="text" value={loggedInUser.name} placeholder= 'Full Name' ref={register({ required: true, minLength: 3 , pattern : /^([^0-9]*)$/ })} />
+            <input name="name" type="text" defaultValue={loggedInUser.name} placeholder= 'Full Name' ref={register({ required: true, minLength: 3 , pattern : /^([^0-9]*)$/ })} />
             {errors.name && <span className='error'>*Required, minimum charecters 3 and digit not allowed</span>}
            
-            <input name="email" type="email" value={loggedInUser.email} placeholder = "Email" ref={register({ required: true })} />
+            <input name="email" type="email" defaultValue={loggedInUser.email} placeholder = "Email" ref={register({ required: true })} />
                
              <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Grid container justify="space-around">
@@ -73,7 +73,7 @@ const Register = () => {
             <input name="description" type="text" placeholder= 'Description'  ref={register({ required: true })}/>
             {errors.description && <span className='error'>Description is required </span>}
 
-             <input name="orgName" type="text" value={orgName} placeholder= 'OrgName'  ref={register({ required: true })} />
+             <input name="orgName" type="text" defaultValue={orgName} placeholder= 'OrgName'  ref={register({ required: true })} />
              {errors.orgName && <span className='error'>Org Name is required </span>}
 
 
