@@ -13,29 +13,32 @@ import { useHistory } from 'react-router-dom';
 const AddEvent = () => {
     const { register, handleSubmit, errors } = useForm();
     const history = useHistory();
-    //const defaultImgUrl = 'https://i.postimg.cc/br5jT64V/house-png-170.png'
     const defaultImgUrl = 'https://i.postimg.cc/W1yVJbcM/people-united-hands-together-teamwork-55877-572.jpg'
 
     const [selectedDate, setSelectedDate] = useState(new Date());
     const handleDateChange = (date) => {
         setSelectedDate(date);
-      };
+    };
 
-      const onSubmit = data => { //Handle register , send register info in db;
+    const onSubmit = data => { //Handle register , send register info in db;
         const events = { // this object that will be push in database for as a new org.
             orgName : data.orgName,
             description: data.description,
             date    : selectedDate.toString().slice(4,15),
             orgImg  : defaultImgUrl,
-            
-        }
+            }
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(events)
         };
-        fetch('https://cryptic-ocean-31876.herokuapp.com/addNewOrgEvent', requestOptions) ;// fetch req for add new org event 
-       
+       // fetch('https://cryptic-ocean-31876.herokuapp.com/addNewOrgEvent', requestOptions) ;// fetch req for add new org event 
+        
+        fetch('http://localhost:5000/addNewOrgEvent', requestOptions) // fetch req for add new org event
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
+
         history.push({ 
             pathname: '/', //redirect to home page
         });

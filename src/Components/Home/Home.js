@@ -7,15 +7,19 @@ const Home = () => {
 
     //get ornaginazation data 
     const [org ,setOrg] = useState([]);
+    const [search, setSearch] = useState('')
     useEffect(() => {
-      fetch('https://cryptic-ocean-31876.herokuapp.com/orglist') 
+      fetch('http://localhost:5000/orglist?search='+search) 
           .then(response => response.json())
           .then(data => setOrg(data)); 
-    }, []);
+    }, [search]);
+
+    const handleSearch = event=>{
+       setSearch(event.target.value)
+    }
+
     const history = useHistory();
-    
-    const processRegister = (name, id, imgUrl)=> {
-       
+    const processRegister = (name, id, imgUrl)=> {  //--------------- after click register btn ----------------- 
         history.push({ 
             pathname: '/register',
             state : {
@@ -30,7 +34,7 @@ const Home = () => {
         <div className ='home'>
             <h2>I grow by helping people in need.</h2> 
             <div className = 'search-bar'>
-                <input type="text" placeholder ='Search...'/>
+                <input type="text" placeholder ='Search...' onBlur = {handleSearch}/>
                 <button className= 'btn btn-primary  btn-lg'> Search</button>
             </div>  
 

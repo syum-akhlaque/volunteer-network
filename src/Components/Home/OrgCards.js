@@ -18,7 +18,7 @@ const OrgCards = (props) => {
     const btnColor = btnColorList[handleRandomBtnColor()];
     return (
         <div style={{ backgroundImage: ` url(${orgImg})`         
-            }} className ='cards col-md-3 d-flex align-items-end' > 
+            }} className ='cards  col-md-3 d-flex align-items-end' > 
             <button className={btnColor + ' btn cards-btn btn-lg py-3'} onClick = {()=>props.processRegister(orgName , id, orgImg)} > {orgName}</button> 
         </div>
     );
