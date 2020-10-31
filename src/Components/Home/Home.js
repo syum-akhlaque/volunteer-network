@@ -9,7 +9,7 @@ const Home = () => {
     const [org ,setOrg] = useState([]);
     const [search, setSearch] = useState('')
     useEffect(() => {
-      fetch('http://localhost:5000/orglist?search='+search) 
+      fetch('https://cryptic-ocean-31876.herokuapp.com/orglist?search='+search) 
           .then(response => response.json())
           .then(data => setOrg(data)); 
     }, [search]);

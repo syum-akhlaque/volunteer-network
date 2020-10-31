@@ -34,7 +34,7 @@ const AddEvent = () => {
         };
        // fetch('https://cryptic-ocean-31876.herokuapp.com/addNewOrgEvent', requestOptions) ;// fetch req for add new org event 
         
-        fetch('http://localhost:5000/addNewOrgEvent', requestOptions) // fetch req for add new org event
+        fetch('https://cryptic-ocean-31876.herokuapp.com/addNewOrgEvent', requestOptions) // fetch req for add new org event
         .then(res => res.json())
         .then(data => console.log(data))
         .catch(err => console.log(err));
